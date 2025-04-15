@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ransomware Education Portal - Powered by Zebari Group IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light);
+        }
+        
+        header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 20px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+        }
+        
+        section {
+            padding: 60px 0;
+            scroll-margin-top: 80px;
+        }
+        
+        section:nth-child(odd) {
+            background-color: #f8f9fa;
+        }
+        
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-heading h2 {
+            font-size: 2rem;
+            color: var(--secondary);
+        }
+        
+        .section-heading p {
+            color: #666;
+            max-width: 700px;
+            margin: 10px auto 0;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            padding: 20px;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .card-footer {
+            padding: 15px 20px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .list-item {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+        
+        .list-icon {
+            background-color: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .list-content {
+            flex: 1;
+        }
+        
+        .list-content h3 {
+            margin-bottom: 8px;
+            color: var(--secondary);
+        }
+        
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .stat-item {
+            padding: 20px;
+            width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 40px 0;
+        }
+        
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .chart-source {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-btn {
+            padding: 10px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .resource-link {
+            display: block;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+            color: var(--secondary);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+        
+        .resource-link:hover {
+            transform: translateX(5px);
+        }
+        
+        .resource-link h3 {
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .resource-link p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            width: 30%;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+        }
+        
+        .footer-section a {
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        
+        .social-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                padding: 10px 20px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-item {
+                width: 45%;
+                margin-bottom: 20px;
+            }
+            
+            .footer-section {
+                width: 100%;
+            }
+        }
+
+        /* Timeline styles */
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd)::after {
+            right: -14px;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -14px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+            }
+            
+            .timeline-item:nth-child(odd)::after {
+                right: auto;
+            }
+        }
+
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+            border-bottom: 1px dotted #666;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            background-color: var(--secondary);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            width: 200px;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--secondary) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Alert box styles */
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .alert:hover {
+            transform: translateY(-3px);
+        }
+        
+        .alert-icon {
+            margin-right: 15px;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .alert-content {
+            flex: 1;
+        }
+        
+        .alert-warning {
+            background-color: #fff3cd;
+            border-left: 4px solid var(--warning);
+            color: #856404;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--danger);
+            color: #721c24;
+        }
+        
+        .alert-info {
+            background-color: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 0;
+            border-radius: 10px;
+            width: 70%;
+            max-width: 800px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s;
+        }
+        
+        @keyframes slideIn {
+            from { top: -300px; opacity: 0; }
+            to { top: 0; opacity: 1; }
+        }
+        
+        .modal-header {
+            padding: 20px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .modal-body {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .close-modal {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close-modal:hover {
+            opacity: 0.8;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .service-item {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        /* Risk Assessment Tool */
+        .risk-assessment-tool {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 40px 0;
+        }
+        
+        .risk-question {
+            margin-bottom: 20px;
+        }
+        
+        .risk-question p {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+        
+        .risk-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .risk-option {
+            padding: 8px 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .risk-option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .risk-option.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .risk-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .risk-high {
+            background-color: #f8d7da;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .risk-medium {
+            background-color: #fff3cd;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .risk-low {
+            background-color: #d4edda;
+            border-left: 4px solid var(--success);
+        }
+        
+        /* Animation effects */
+        .animate-fade-in {
+            animation: fadeIn 1s;
+        }
+        
+        .animate-slide-in {
+            animation: slideInRight 0.5s;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Attack Simulation */
+        .attack-simulation {
+            position: relative;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #2c3e50;
+            margin: 40px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .simulation-controls {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .simulation-step {
+            padding: 8px 15px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .simulation-step:hover {
+            background-color: #2980b9;
+        }
+        
+        .simulation-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .simulation-scene {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .simulation-scene.active {
+            opacity: 1;
+        }
+        
+        .simulation-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .simulation-text {
+            text-align: center;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        
+        /* News Feed */
+        .news-feed {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 40px 0;
+        }
+        
+        .news-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-date {
+            flex-shrink: 0;
+            color: var(--primary);
+            font-weight: 600;
+            width: 100px;
+        }
+        
+        .news-content {
+            flex: 1;
+        }
+        
+        .news-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--secondary);
+        }
+        
+        .news-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Hero video background */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        /* Notification system */
+        .notification-bell {
+            display: none;
+        }
+        
+        .notifications-panel {
+            display: none;
+        }
+
+        /* Quiz styles */
+        .quiz-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 40px 0;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+        }
+        
+        .question h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .option.selected {
+            background-color: #e3f2fd;
+            border-color: var(--primary);
+        }
+        
+        .option input {
+            margin-right: 10px;
+        }
+        
+        .quiz-controls {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        #quiz-result {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .result-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        .result-warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .result-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 10px;">
+                    <path d="M50 10C27.91 10 10 27.91 10 50C10 72.09 27.91 90 50 90C72.09 90 90 72.09 90 50C90 27.91 72.09 10 50 10Z" fill="#3498db"/>
+                    <path d="M50 25C36.19 25 25 36.19 25 50C25 63.81 36.19 75 50 75C63.81 75 75 63.81 75 50C75 36.19 63.81 25 50 25ZM50 55C47.24 55 45 52.76 45 50C45 47.24 47.24 45 50 45C52.76 45 55 47.24 55 50C55 52.76 52.76 55 50 55Z" fill="#2c3e50"/>
+                    <path d="M50 35V45M50 55V65M35 50H45M55 50H65" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M30 30L40 40M60 60L70 70M30 70L40 60M60 40L70 30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg> Welcome to Zebari Group IT's Ransomware Education Portal</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Zebari Group IT is a leading cybersecurity and IT solutions provider with expertise in protecting organizations from ransomware and other cyber threats. For over 15 years, we've been helping businesses secure their digital assets with comprehensive cybersecurity services.</p>
+                
+                <h3>Our Ransomware Protection Services:</h3>
+                <div class="service-grid">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Security Assessments</h4>
+                        <p>Comprehensive evaluation of your vulnerability to ransomware attacks</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h4>Backup Solutions</h4>
+                        <p>Implementing secure, ransomware-resistant backup strategies</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h4>Staff Training</h4>
+                        <p>Security awareness programs focused on ransomware prevention</p>
+                    </div>
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-fire-extinguisher"></i>
+                        </div>
+                        <h4>Incident Response</h4>
+                        <p>24/7 support for ransomware attacks and recovery assistance</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="explorePortal" class="btn">Explore the Portal</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50 10C27.91 10 10 27.91 10 50C10 72.09 27.91 90 50 90C72.09 90 90 72.09 90 50C90 27.91 72.09 10 50 10Z" fill="#3498db"/>
+                    <path d="M50 25C36.19 25 25 36.19 25 50C25 63.81 36.19 75 50 75C63.81 75 75 63.81 75 50C75 36.19 63.81 25 50 25ZM50 55C47.24 55 45 52.76 45 50C45 47.24 47.24 45 50 45C52.76 45 55 47.24 55 50C55 52.76 52.76 55 50 55Z" fill="#2c3e50"/>
+                    <path d="M50 35V45M50 55V65M35 50H45M55 50H65" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M30 30L40 40M60 60L70 70M30 70L40 60M60 40L70 30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <h4>Ransomware Education Portal</h4>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#types">Types</a></li>
+                    <li><a href="#prevention">Prevention</a></li>
+                    <li><a href="#mitigation">Mitigation</a></li>
+                    <li><a href="#trends">Trends</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#quiz">Test Yourself</a></li>
+                    <li><a href="#risk-assessment">Risk Assessment</a></li>
+                    <li><a href="#simulation">Attack Simulation</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <video class="hero-video" autoplay muted loop>
+            <source src="/api/placeholder/1200/600" type="video/mp4">
+        </video>
+        <div class="container">
+            <h1>Protect Your Organization from Ransomware</h1>
+            <p>Learn about ransomware attacks, how they work, and the most effective strategies to prevent and mitigate them. Knowledge is your first line of defense.</p>
+            <a href="#prevention" class="btn">Get Protected Now</a>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Understanding Ransomware</h2>
+                <p>Learn what ransomware is and how it threatens organizations of all sizes</p>
+            </div>
+
+            <div class="alert alert-danger">
+                <div class="alert-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="alert-content">
+                    <h3>Critical Threat</h3>
+                    <p>Ransomware attacks are increasing in frequency and sophistication, with global damages predicted to cost $265 billion annually by 2031.</p>
+                </div>
+            </div>
+
+            <div class="list-item">
+                <div class="list-icon">1</div>
+                <div class="list-content">
+                    <h3>What is Ransomware?</h3>
+                    <p>Ransomware is a type of malicious software (malware) designed to block access to a computer system or data until a sum of money (ransom) is paid. It typically encrypts files on the victim's device, making them inaccessible without a decryption key.</p>
+                </div>
+            </div>
+
+            <div class="list-item">
+                <div class="list-icon">2</div>
+                <div class="list-content">
+                    <h3>How Ransomware Works</h3>
+                    <p>Most ransomware attacks follow a similar pattern: infiltration through a vulnerability, encryption of files, communication with command and control servers, and display of ransom demands. Advanced ransomware may also spread to connected systems and exfiltrate data before encryption.</p>
+                </div>
+            </div>
+
+            <div class="list-item">
+                <div class="list-icon">3</div>
+                <div class="list-content">
+                    <h3>Ransomware Attack Vectors</h3>
+                    <p>Common infection methods include phishing emails, compromised websites, exploit kits targeting software vulnerabilities, remote desktop protocol (RDP) attacks, and supply chain compromises affecting trusted software distribution channels.</p>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">$4.5M</div>
+                    <div class="stat-label">Average cost of a ransomware breach in 2023</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">11</div>
+                    <div class="stat-label">Seconds between ransomware attacks globally</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">21</div>
+                    <div class="stat-label">Days average downtime after an attack</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1.9×</div>
+                    <div class="stat-label">Increase in attacks since 2020</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Ransomware Attack Statistics (2018-2024)</h3>
+                <canvas id="ransomwareChart"></canvas>
+                <div class="chart-source">Source: Cybersecurity Ventures, IBM Security, Coveware Quarterly Reports</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="types">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Types of Ransomware</h2>
+                <p>Understanding the different types of ransomware and how they operate</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Crypto Ransomware</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>The most common type that encrypts valuable files like documents, photos, and videos. Examples include WannaCry, Ryuk, and REvil. It leaves the operating system intact but makes important files inaccessible.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Locker Ransomware</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Locks users out of their devices completely by restricting access to the user interface. Unlike crypto ransomware, it doesn't typically encrypt files but prevents access to the entire system.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Double Extortion</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>A newer trend where attackers not only encrypt data but also exfiltrate sensitive information before encryption. They then threaten to publish this data unless an additional ransom is paid, creating two layers of extortion.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>RaaS (Ransomware-as-a-Service)</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>A business model where ransomware developers lease their malware to other criminals (affiliates) who conduct the attacks. The developers receive a percentage of each ransom payment, making ransomware accessible to less technical criminals.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Mobile Ransomware</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Targets smartphones and tablets, often distributed through unofficial app stores. May lock the device or encrypt files stored on SD cards. Examples include Android/Filecoder and WannaLocker.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Scareware</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Fake security software that claims to have found issues on your device and demands payment to fix them. While less sophisticated than other types, it can still trick users into paying ransoms.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Most Common Ransomware Variants (2023-2024)</h3>
+                <canvas id="variantsChart"></canvas>
+                <div class="chart-source">Source: Recorded Future, CISA, BlackFog Ransomware Reports</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="prevention">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware Prevention</h2>
+                <p>Proactive measures to protect your systems and data</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="technical">Technical Controls</button>
+                <button class="tab-btn" data-tab="administrative">Administrative Controls</button>
+                <button class="tab-btn" data-tab="user">User Training</button>
+            </div>
+
+            <div id="technical" class="tab-content active">
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Keep Systems Updated</h3>
+                        <p>Regularly patch operating systems, applications, and firmware. Many ransomware attacks exploit known vulnerabilities that have available patches. Implement automated patch management where possible.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Email Security</h3>
+                        <p>Implement advanced email filtering, scanning attachments and links. Block executable file types and use sandboxing technology to detonate suspicious attachments in an isolated environment before delivery.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Network Segmentation</h3>
+                        <p>Divide networks into separate zones to prevent lateral movement. Critical systems should be isolated from general-purpose networks, limiting the spread of malware if a breach occurs.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Application Whitelisting</h3>
+                        <p>Only allow approved applications to run on systems. This prevents unauthorized executables, including ransomware, from running even if they make it onto the system.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Modern Endpoint Protection</h3>
+                        <p>Deploy next-generation antivirus with behavioral detection capabilities. Look for solutions with ransomware-specific protections that can detect encryption activities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="administrative" class="tab-content">
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Backup Strategy</h3>
+                        <p>Implement the 3-2-1 backup rule: maintain at least 3 copies of data on 2 different media types with 1 copy stored offsite. Ensure backups are air-gapped or immutable to prevent ransomware from encrypting them.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Access Control</h3>
+                        <p>Apply the principle of least privilege - users should only have access to the resources necessary for their job functions. Limit administrative privileges and regularly review access rights.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Incident Response Plan</h3>
+                        <p>Develop and regularly test a ransomware-specific incident response plan. Include communication protocols, containment procedures, and recovery strategies.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Risk Assessment</h3>
+                        <p>Conduct regular security risk assessments to identify vulnerabilities. Prioritize addressing critical gaps that could be exploited by ransomware attackers.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Security Policies</h3>
+                        <p>Establish clear policies for email attachments, removable media use, and remote access. Document the organization's stance on ransom payments.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="user" class="tab-content">
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Phishing Awareness</h3>
+                        <p>Train users to identify phishing attempts, suspicious links, and social engineering tactics. Conduct regular phishing simulations to test awareness and reinforce training.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Safe Browsing Habits</h3>
+                        <p>Educate users on the risks of visiting untrusted websites, downloading software from unofficial sources, and clicking on pop-up advertisements.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Attachment Handling</h3>
+                        <p>Teach staff to be cautious with email attachments, especially those containing macros or executable files. Provide clear procedures for verifying suspicious attachments.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Incident Reporting</h3>
+                        <p>Create a culture where users feel comfortable reporting security incidents quickly, without fear of punishment. Early detection can significantly reduce the impact of ransomware.</p>
+                    </div>
+                </div>
+
+                <div class="list-item">
+                    <div class="list-icon">✓</div>
+                    <div class="list-content">
+                        <h3>Password Management</h3>
+                        <p>Train users on password best practices, including the use of password managers and multi-factor authentication. Strong authentication can prevent initial access by attackers.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Effectiveness of Prevention Measures</h3>
+                <canvas id="preventionChart"></canvas>
+                <div class="chart-source">Source: SANS Institute, Ponemon Institute</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mitigation">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware Mitigation</h2>
+                <p>What to do if you are hit by ransomware</p>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="alert-content">
+                    <h3>Preparedness is Key</h3>
+                    <p>Organizations with tested incident response plans recover from ransomware attacks 4x faster and at 30% lower cost than unprepared organizations.</p>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Immediate Response</span>
+                        <h3>Isolate Affected Systems</h3>
+                        <p>Disconnect affected devices from the network immediately to prevent lateral spread. Disconnect network shares, external drives, and cloud storage. Power off affected systems only as a last resort, as this may destroy forensic evidence.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">First Hour</span>
+                        <h3>Activate Incident Response</h3>
+                        <p>Notify your incident response team and activate your ransomware response plan. Assign roles and responsibilities per your plan. Document everything, including ransom notes and encrypted file examples.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">First Day</span>
+                        <h3>Identify and Contain</h3>
+                        <p>Determine the ransomware variant using resources like ID Ransomware. Assess the scope of the infection and identify patient zero. Implement additional containment measures based on the specific ransomware variant.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Recovery Planning</span>
+                        <h3>Evaluate Options</h3>
+                        <p>Assess the viability of your backups. Determine if decryptors are available for the specific ransomware variant. Consult with legal, cybersecurity experts, and law enforcement before considering payment.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Restoration</span>
+                        <h3>Clean and Restore</h3>
+                        <p>Wipe and rebuild affected systems from known clean images. Restore data from verified clean backups. Scan all restored files for malware before reconnecting systems to the network.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">Post-Incident</span>
+                        <h3>Review and Learn</h3>
+                        <p>Conduct a thorough post-incident review to identify how the ransomware entered your environment. Update security controls and response plans based on lessons learned. Consider cyber insurance if you don't already have it.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <div class="alert-icon">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="alert-content">
+                    <h3>Should You Pay the Ransom?</h3>
+                    <p>Most cybersecurity experts and law enforcement agencies advise against paying ransoms. Payment doesn't guarantee data recovery, encourages further criminal activity, and may implicate you in sanctions violations if paying sanctioned entities. However, organizations must make their own risk-based decision after consulting with legal counsel and cybersecurity experts.</p>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Data Recovery Success After Ransomware Attack</h3>
+                <canvas id="recoveryChart"></canvas>
+                <div class="chart-source">Source: Sophos "State of Ransomware Report", Coveware Quarterly Reports</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trends">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware Trends</h2>
+                <p>The evolving ransomware landscape and emerging threats</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Multi-Extortion Tactics</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Beyond just encrypting data, attackers now employ multiple pressure tactics: data theft and leaking (double extortion), DDoS attacks (triple extortion), and contacting customers/partners (quadruple extortion).</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Critical Infrastructure Targeting</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Increasing focus on high-impact targets like healthcare, energy, transportation, and government sectors. These attacks can disrupt essential services and create public pressure to pay ransoms.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Supply Chain Attacks</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Compromising trusted software vendors to distribute ransomware to their customers. These attacks can affect thousands of organizations simultaneously, as seen in the Kaseya and SolarWinds incidents.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Specialized Targeting</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Moving from opportunistic to highly targeted attacks. Attackers research victims, understand their financial position, and tailor ransom demands to what they believe the organization can pay.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Initial Access Brokers</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Specialized cybercriminals who gain access to corporate networks and then sell this access to ransomware operators. This allows ransomware gangs to focus on their core malicious activities.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Cryptocurrency Regulations</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>Increased regulatory scrutiny of cryptocurrency transactions is forcing ransomware groups to adapt their payment methods and money laundering techniques.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Ransomware Targets by Industry (2023-2024)</h3>
+                <canvas id="industryChart"></canvas>
+                <div class="chart-source">Source: IBM Security X-Force, Recorded Future</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="risk-assessment">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware Risk Assessment</h2>
+                <p>Evaluate your organization's vulnerability to ransomware attacks</p>
+            </div>
+            
+            <div class="risk-assessment-tool">
+                <h3>Quick Risk Assessment Tool</h3>
+                <p>Answer these questions to get a preliminary assessment of your ransomware risk level. For a comprehensive assessment, contact Zebari Group IT for professional services.</p>
+                
+                <div class="risk-question">
+                    <p>1. How often do you back up your critical data?</p>
+                    <div class="risk-options">
+                        <div class="risk-option" data-score="3">Daily with offline copies</div>
+                        <div class="risk-option" data-score="2">Weekly</div>
+                        <div class="risk-option" data-score="1">Monthly or less</div>
+                        <div class="risk-option" data-score="0">We don't have regular backups</div>
+                    </div>
+                </div>
+                
+                <div class="risk-question">
+                    <p>2. Do you regularly test your backups to ensure they can be restored?</p>
+                    <div class="risk-options">
+                        <div class="risk-option" data-score="3">Yes, at least quarterly</div>
+                        <div class="risk-option" data-score="2">Yes, but less than quarterly</div>
+                        <div class="risk-option" data-score="1">Rarely</div>
+                        <div class="risk-option" data-score="0">Never</div>
+                    </div>
+                </div>
+                
+                <div class="risk-question">
+                    <p>3. Do you provide regular security awareness training for your staff?</p>
+                    <div class="risk-options">
+                        <div class="risk-option" data-score="3">Yes, with regular phishing simulations</div>
+                        <div class="risk-option" data-score="2">Yes, annually</div>
+                        <div class="risk-option" data-score="1">Only during onboarding</div>
+                        <div class="risk-option" data-score="0">No formal training</div>
+                    </div>
+                </div>
+                
+                <div class="risk-question">
+                    <p>4. How do you manage software patches and updates?</p>
+                    <div class="risk-options">
+                        <div class="risk-option" data-score="3">Automated with regular verification</div>
+                        <div class="risk-option" data-score="2">Manual but regular schedule</div>
+                        <div class="risk-option" data-score="1">When convenient</div>
+                        <div class="risk-option" data-score="0">Only when problems occur</div>
+                    </div>
+                </div>
+                
+                <div class="risk-question">
+                    <p>5. Do you have multi-factor authentication (MFA) implemented?</p>
+                    <div class="risk-options">
+                        <div class="risk-option" data-score="3">Yes, on all systems and accounts</div>
+                        <div class="risk-option" data-score="2">Only on critical systems</div>
+                        <div class="risk-option" data-score="1">Only for administrative access</div>
+                        <div class="risk-option" data-score="0">Not implemented</div>
+                    </div>
+                </div>
+                
+                <div class="risk-question">
+                    <p>6. Do you have a documented incident response plan for ransomware?</p>
+                    <div class="risk-options">
+                        <div class="risk-option" data-score="3">Yes, with regular testing</div>
+                        <div class="risk-option" data-score="2">Yes, but not regularly tested</div>
+                        <div class="risk-option" data-score="1">We have a general plan</div>
+                        <div class="risk-option" data-score="0">No plan</div>
+                    </div>
+                </div>
+                
+                <button id="calculate-risk" class="btn">Calculate Risk Level</button>
+                
+                <div id="risk-result" class="risk-result">
+                    <h3>Your Risk Assessment</h3>
+                    <p id="risk-score"></p>
+                    <p id="risk-recommendation"></p>
+                    <a href="https://www.zebarigroup.com/contact" target="_blank" class="btn" style="margin-top: 15px;">Get Professional Assessment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="simulation">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware Attack Simulation</h2>
+                <p>See how a typical ransomware attack unfolds and learn how to prevent it</p>
+            </div>
+            
+            <div class="attack-simulation">
+                <div class="simulation-container">
+                    <div id="simulation-scene-1" class="simulation-scene active">
+                        <h3 class="simulation-title">1. Initial Infection Vector</h3>
+                        <p class="simulation-text">The attack begins with a phishing email containing a malicious attachment disguised as an invoice. When opened, it contains a macro that silently downloads the ransomware payload from a command and control server.</p>
+                    </div>
+                    
+                    <div id="simulation-scene-2" class="simulation-scene">
+                        <h3 class="simulation-title">2. Establishing Persistence</h3>
+                        <p class="simulation-text">Once installed, the ransomware creates registry entries to ensure it runs on startup. It may disable certain security features and create backdoors for future access.</p>
+                    </div>
+                    
+                    <div id="simulation-scene-3" class="simulation-scene">
+                        <h3 class="simulation-title">3. Reconnaissance & Lateral Movement</h3>
+                        <p class="simulation-text">The ransomware scans the network for valuable data and vulnerable systems. It uses credential harvesting and exploits to move laterally across the network to infect more systems.</p>
+                    </div>
+                    
+                    <div id="simulation-scene-4" class="simulation-scene">
+                        <h3 class="simulation-title">4. Data Exfiltration</h3>
+                        <p class="simulation-text">Before encryption, modern ransomware exfiltrates sensitive data to the attacker's servers. This data will be used for double extortion - threatening to publish the data if ransom isn't paid.</p>
+                    </div>
+                    
+                    <div id="simulation-scene-5" class="simulation-scene">
+                        <h3 class="simulation-title">5. Encryption & Ransom Demand</h3>
+                        <p class="simulation-text">The ransomware encrypts files across all infected systems, making them inaccessible. It then displays a ransom note with payment instructions and deadline.</p>
+                    </div>
+                    
+                    <div id="simulation-scene-6" class="simulation-scene">
+                        <h3 class="simulation-title">Prevention Points</h3>
+                        <p class="simulation-text">Each stage can be prevented: Email security & user training (stage 1), endpoint protection (stage 2), network segmentation (stage 3), data loss prevention (stage 4), and reliable backups (stage 5).</p>
+                    </div>
+                </div>
+                
+                <div class="simulation-controls">
+                    <button class="simulation-step" data-step="1">Step 1</button>
+                    <button class="simulation-step" data-step="2">Step 2</button>
+                    <button class="simulation-step" data-step="3">Step 3</button>
+                    <button class="simulation-step" data-step="4">Step 4</button>
+                    <button class="simulation-step" data-step="5">Step 5</button>
+                    <button class="simulation-step" data-step="6">Prevention</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="news">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware News & Updates</h2>
+                <p>Stay informed about the latest ransomware threats and developments</p>
+            </div>
+            
+            <div class="news-feed">
+                <div class="news-item">
+                    <div class="news-date">Apr 10, 2025</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Healthcare Sector Targeted by New Ransomware Campaign</h3>
+                        <p class="news-description">A sophisticated ransomware group is targeting healthcare providers with spear-phishing emails impersonating medical equipment suppliers.</p>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-date">Apr 5, 2025</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Critical Vulnerability in Popular VPN Service Exploited</h3>
+                        <p class="news-description">Ransomware operators are actively exploiting a zero-day vulnerability in a widely-used VPN service. Update immediately.</p>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-date">Mar 28, 2025</div>
+                    <div class="news-content">
+                        <h3 class="news-title">FBI Disrupts Major Ransomware Operation</h3>
+                        <p class="news-description">Law enforcement agencies have taken down infrastructure associated with a notorious ransomware-as-a-service operation.</p>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-date">Mar 22, 2025</div>
+                    <div class="news-content">
+                        <h3 class="news-title">New Decryptor Released for MalwareX Ransomware</h3>
+                        <p class="news-description">Security researchers have released a free decryption tool for victims of the MalwareX ransomware strain.</p>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <div class="news-date">Mar 15, 2025</div>
+                    <div class="news-content">
+                        <h3 class="news-title">Ransomware Payments Reach Record Highs in Q1 2025</h3>
+                        <p class="news-description">A new report shows average ransomware payments have increased by 35% in the first quarter of 2025.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="#" class="btn">View All News</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="resources">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Ransomware Resources</h2>
+                <p>Tools and resources to help protect against and respond to ransomware</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="official-resources">Official Guidance</button>
+                <button class="tab-btn" data-tab="tools-resources">Tools & Services</button>
+                <button class="tab-btn" data-tab="training-resources">Training Resources</button>
+                <button class="tab-btn" data-tab="zebari-resources">Zebari Group Resources</button>
+            </div>
+
+            <div id="official-resources" class="tab-content active">
+                <div class="resource-link">
+                    <h3>CISA Ransomware Guide</h3>
+                    <p>Comprehensive guidance from the Cybersecurity and Infrastructure Security Agency on ransomware prevention and response.</p>
+                    <a href="https://www.cisa.gov/stopransomware" target="_blank">https://www.cisa.gov/stopransomware</a>
+                </div>
+
+                <div class="resource-link">
+                    <h3>FBI Ransomware Resources</h3>
+                    <p>Federal Bureau of Investigation's resources and reporting mechanisms for ransomware incidents.</p>
+                    <a href="https://www.fbi.gov/scams-and-safety/common-scams-and-crimes/ransomware" target="_blank">https://www.fbi.gov/scams-and-safety/common-scams-and-crimes/ransomware</a>
+                </div>
+
+                <div class="resource-link">
+                    <h3>No More Ransom Project</h3>
+                    <p>Initiative by law enforcement and cybersecurity companies offering free decryption tools for various ransomware strains.</p>
+                    <a href="https://www.nomoreransom.org" target="_blank">https://www.nomoreransom.org</a>
+                </div>
+            </div>
+
+            <div id="tools-resources" class="tab-content">
+                <div class="resource-link">
+                    <h3>ID Ransomware</h3>
+                    <p>Tool to identify ransomware variants based on ransom notes or encrypted file samples.</p>
+                    <a href="https://id-ransomware.malwarehunterteam.com" target="_blank">https://id-ransomware.malwarehunterteam.com</a>
+                </div>
+
+                <div class="resource-link">
+                    <h3>Cybersecurity Assessment Tools</h3>
+                    <p>Free tools to evaluate your organization's security posture and ransomware readiness.</p>
+                    <a href="https://www.cisa.gov/free-cybersecurity-services-and-tools" target="_blank">https://www.cisa.gov/free-cybersecurity-services-and-tools</a>
+                </div>
+                
+                <div class="resource-link">
+                    <h3>Ransomware Response Playbook</h3>
+                    <p>Step-by-step guide for responding to ransomware incidents.</p>
+                    <a href="https://csrc.nist.gov/publications/detail/sp/1800-11/final" target="_blank">https://csrc.nist.gov/publications/detail/sp/1800-11/final</a>
+                </div>
+            </div>
+
+            <div id="training-resources" class="tab-content">
+                <div class="resource-link">
+                    <h3>SANS Ransomware Prevention Checklist</h3>
+                    <p>Detailed checklist for organizations to assess and improve their ransomware defenses.</p>
+                    <a href="https://www.sans.org/blog/sans-ransomware-checklist/" target="_blank">https://www.sans.org/blog/sans-ransomware-checklist/</a>
+                </div>
+
+                <div class="resource-link">
+                    <h3>Phishing Awareness Training</h3>
+                    <p>Free and commercial phishing simulation and training resources.</p>
+                    <a href="https://www.phishing.org/free-phishing-training" target="_blank">https://www.phishing.org/free-phishing-training</a>
+                </div>
+                
+                <div class="resource-link">
+                    <h3>Cyber Insurance Resources</h3>
+                    <p>Guidance on obtaining cyber insurance coverage for ransomware incidents.</p>
+                    <a href="https://www.ftc.gov/business-guidance/resources/ftc-ransomware-guidance" target="_blank">https://www.ftc.gov/business-guidance/resources/ftc-ransomware-guidance</a>
+                </div>
+            </div>
+            
+            <div id="zebari-resources" class="tab-content">
+                <div class="resource-link">
+                    <h3>Ransomware Prevention Guide</h3>
+                    <p>Download our comprehensive guide with actionable steps to protect your organization.</p>
+                    <a href="https://www.zebarigroup.com/resources/ransomware-prevention-guide" target="_blank">Download PDF Guide</a>
+                </div>
+
+                <div class="resource-link">
+                    <h3>Ransomware Response Template</h3>
+                    <p>Free template for creating your organization's ransomware response plan.</p>
+                    <a href="https://www.zebarigroup.com/resources/ransomware-response-template" target="_blank">Download Template</a>
+                </div>
+                
+                <div class="resource-link">
+                    <h3>Security Assessment Services</h3>
+                    <p>Learn about our professional ransomware vulnerability assessment services.</p>
+                    <a href="https://www.zebarigroup.com/services/security-assessment" target="_blank">View Services</a>
+                </div>
+                
+                <div class="resource-link">
+                    <h3>On-Demand Webinar: Ransomware Trends 2025</h3>
+                    <p>Watch our latest webinar on ransomware trends and prevention strategies.</p>
+                    <a href="https://www.zebarigroup.com/webinars/ransomware-trends-2025" target="_blank">Watch Webinar</a>
+                </div>
+            </div>
+            
+            <div class="alert alert-info" style="margin-top: 30px;">
+                <div class="alert-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <div class="alert-content">
+                    <h3>Downloadable Ransomware Emergency Response Card</h3>
+                    <p>Get our printable quick-reference card with essential first steps to take if you suspect a ransomware infection.</p>
+                    <a href="https://www.zebarigroup.com/downloads/ransomware-emergency-card" target="_blank" class="btn" style="margin-top: 10px;">Download Emergency Card</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Test Your Ransomware Knowledge</h2>
+                <p>Check your understanding of ransomware concepts and best practices</p>
+            </div>
+
+            <div class="quiz-container">
+                <div id="question-1" class="question">
+                    <h3>1. Which of these is NOT a common ransomware infection vector?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q1" value="a"> Phishing emails with malicious attachments
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="b"> Exploiting unpatched software vulnerabilities
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="c"> Using strong, unique passwords on all accounts
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q1" value="d"> Remote Desktop Protocol (RDP) with weak credentials
+                        </label>
+                    </div>
+                </div>
+
+                <div id="question-2" class="question">
+                    <h3>2. What is "double extortion" in the context of ransomware?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q2" value="a"> Demanding ransom twice for the same attack
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="b"> Encrypting files and threatening to publish stolen data
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="c"> Attacking the same victim twice in succession
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q2" value="d"> Charging double the usual ransom amount
+                        </label>
+                    </div>
+                </div>
+
+                <div id="question-3" class="question">
+                    <h3>3. Which backup strategy is considered most effective against ransomware?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q3" value="a"> Daily backups to a connected external hard drive
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="b"> Weekly backups to a cloud storage service
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="c"> The 3-2-1 strategy with offline or immutable backups
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q3" value="d"> Relying on system restore points
+                        </label>
+                    </div>
+                </div>
+
+                <div id="question-4" class="question">
+                    <h3>4. What should you do FIRST if you discover a ransomware infection?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q4" value="a"> Pay the ransom immediately
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="b"> Try to decrypt the files using online tools
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="c"> Disconnect affected systems from the network
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q4" value="d"> Run a full system scan with antivirus software
+                        </label>
+                    </div>
+                </div>
+
+                <div id="question-5" class="question">
+                    <h3>5. Which of these is NOT typically considered a best practice for ransomware prevention?</h3>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="q5" value="a"> Regular security awareness training for all employees
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="b"> Keeping a Bitcoin wallet ready for quick ransom payment
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="c"> Implementing network segmentation
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="q5" value="d"> Applying security patches promptly
+                        </label>
+                    </div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button id="quiz-submit" class="btn">Check Answers</button>
+                    <button id="quiz-reset" class="btn" style="background-color: #7f8c8d;">Reset Quiz</button>
+                </div>
+
+                <div id="quiz-result"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Zebari Group IT</h3>
+                    <p>Zebari Group IT is a leading cybersecurity consulting firm specializing in ransomware prevention, detection, and recovery services.</p>
+                    <p>With over 15 years of experience protecting organizations from cyber threats, we provide comprehensive security solutions tailored to your needs.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#about">Understanding Ransomware</a>
+                    <a href="#types">Types of Ransomware</a>
+                    <a href="#prevention">Prevention Strategies</a>
+                    <a href="#mitigation">Mitigation Techniques</a>
+                    <a href="#trends">Current Trends</a>
+                    <a href="#resources">Resources</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>info@zebarigroup.com</p>
+                    <p>+1 (248) 817-8980</p>
+                    <p>30300 Northwestern Hwy, Suite 324<br>Farmington Hills, MI 48334</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Zebari Group IT. All rights reserved. | <a href="https://www.zebarigroup.com" target="_blank">www.zebarigroup.com</a></p>
+                <p>This website is for educational purposes only. For professional cybersecurity services, please contact our team.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.1/chart.min.js"></script>
+    <script>
+        // Wait for document to be fully loaded and Chart.js available
+        document.addEventListener('DOMContentLoaded', function() {
+        // Welcome Modal Functionality
+        const modal = document.getElementById('welcomeModal');
+        const closeModal = document.querySelector('.close-modal');
+        const exploreButton = document.getElementById('explorePortal');
+        
+        // Show modal when page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                modal.style.display = 'block';
+            }, 500);
+        });
+        
+        // Close modal when clicking the X
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking the explore button
+        exploreButton.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+        
+        // Risk Assessment Tool
+        const riskOptions = document.querySelectorAll('.risk-option');
+        const calculateRiskButton = document.getElementById('calculate-risk');
+        const riskResult = document.getElementById('risk-result');
+        const riskScore = document.getElementById('risk-score');
+        const riskRecommendation = document.getElementById('risk-recommendation');
+        
+        riskOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove selected class from siblings
+                const siblings = option.parentElement.querySelectorAll('.risk-option');
+                siblings.forEach(sib => sib.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                option.classList.add('selected');
+            });
+        });
+        
+        calculateRiskButton.addEventListener('click', () => {
+            let totalScore = 0;
+            let answeredQuestions = 0;
+            
+            document.querySelectorAll('.risk-question').forEach(question => {
+                const selectedOption = question.querySelector('.risk-option.selected');
+                if (selectedOption) {
+                    totalScore += parseInt(selectedOption.dataset.score);
+                    answeredQuestions++;
+                }
+            });
+            
+            if (answeredQuestions < 6) {
+                alert('Please answer all questions to get an accurate assessment.');
+                return;
+            }
+            
+            const maxScore = 18; // 6 questions with max score of 3 each
+            const percentage = Math.round((totalScore / maxScore) * 100);
+            
+            let riskLevel = '';
+            let recommendation = '';
+            let resultClass = '';
+            
+            if (percentage >= 80) {
+                riskLevel = 'Low';
+                resultClass = 'risk-low';
+                recommendation = 'Your organization has implemented many best practices for ransomware protection. Continue maintaining these measures and stay updated on emerging threats.';
+            } else if (percentage >= 50) {
+                riskLevel = 'Medium';
+                resultClass = 'risk-medium';
+                recommendation = 'Your organization has implemented some protective measures but has gaps in your ransomware defenses. Focus on improving your weakest areas as identified in the assessment.';
+            } else {
+                riskLevel = 'High';
+                resultClass = 'risk-high';
+                recommendation = 'Your organization is at high risk for ransomware attacks. We strongly recommend implementing the protective measures outlined in this portal and considering professional assistance.';
+            }
+            
+            riskScore.textContent = `Risk Level: ${riskLevel} (Score: ${totalScore}/${maxScore})`;
+            riskRecommendation.textContent = recommendation;
+            riskResult.className = `risk-result ${resultClass}`;
+            riskResult.style.display = 'block';
+            
+            // Smooth scroll to result
+            riskResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        // Attack Simulation
+        const simulationSteps = document.querySelectorAll('.simulation-step');
+        const simulationScenes = document.querySelectorAll('.simulation-scene');
+        
+        simulationSteps.forEach(step => {
+            step.addEventListener('click', () => {
+                const stepNumber = step.dataset.step;
+                
+                // Hide all scenes
+                simulationScenes.forEach(scene => {
+                    scene.classList.remove('active');
+                });
+                
+                // Show the selected scene
+                document.getElementById(`simulation-scene-${stepNumber}`).classList.add('active');
+            });
+        });
+
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Get the parent tabs container
+                const tabsContainer = button.closest('.tabs');
+                
+                // Get related tab content elements (siblings of the tabs container)
+                const tabContents = tabsContainer.parentElement.querySelectorAll('.tab-content');
+                
+                // Remove active class from all tabs in this container
+                tabsContainer.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Remove active class from all related tab contents
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                
+                // Add active class to clicked tab and its content
+                button.classList.add('active');
+                document.getElementById(button.dataset.tab).classList.add('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Quiz functionality
+        const quizSubmit = document.getElementById('quiz-submit');
+        const quizReset = document.getElementById('quiz-reset');
+        const quizResult = document.getElementById('quiz-result');
+        
+        const correctAnswers = {
+            q1: 'c',
+            q2: 'b',
+            q3: 'c',
+            q4: 'c',
+            q5: 'b'
+        };
+        
+        quizSubmit.addEventListener('click', () => {
+            let score = 0;
+            let total = Object.keys(correctAnswers).length;
+            
+            Object.keys(correctAnswers).forEach(question => {
+                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                if (selectedOption) {
+                    if (selectedOption.value === correctAnswers[question]) {
+                        score++;
+                        selectedOption.parentElement.classList.add('selected');
+                    }
+                }
+            });
+            
+            let resultClass = '';
+            let resultMessage = '';
+            
+            if (score === total) {
+                resultClass = 'result-success';
+                resultMessage = `Excellent! You scored ${score}/${total}. You have a strong understanding of ransomware concepts.`;
+            } else if (score >= total * 0.7) {
+                resultClass = 'result-success';
+                resultMessage = `Good job! You scored ${score}/${total}. You have a good grasp of ransomware basics.`;
+            } else if (score >= total * 0.5) {
+                resultClass = 'result-warning';
+                resultMessage = `You scored ${score}/${total}. Consider reviewing the material to strengthen your knowledge.`;
+            } else {
+                resultClass = 'result-danger';
+                resultMessage = `You scored ${score}/${total}. We recommend thoroughly reviewing the ransomware educational content.`;
+            }
+            
+            quizResult.className = resultClass;
+            quizResult.textContent = resultMessage;
+            quizResult.style.display = 'block';
+            
+            // Smooth scroll to result
+            quizResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        
+        quizReset.addEventListener('click', () => {
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+            });
+            
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            quizResult.style.display = 'none';
+        });
+
+        // Add animation classes on scroll
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.card, .list-item, .resource-link, .timeline-item').forEach(item => {
+                const position = item.getBoundingClientRect();
+                
+                // If element is in viewport
+                if (position.top >= 0 && position.bottom <= window.innerHeight) {
+                    item.classList.add('animate-fade-in');
+                }
+            });
+        });
+            // Ransomware Attack Statistics Chart
+            const ransomwareCtx = document.getElementById('ransomwareChart').getContext('2d');
+            new Chart(ransomwareCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                    datasets: [{
+                        label: 'Average Ransom Payment ($K)',
+                        data: [6, 84, 170, 220, 240, 350, 450],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        borderWidth: 2,
+                        fill: true
+                    }, {
+                        label: 'Number of Attacks (thousands)',
+                        data: [4, 11, 20, 30, 40, 45, 48],
+                        borderColor: '#e74c3c',
+                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: false
+                        },
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Ransomware Variants Chart
+            const variantsCtx = document.getElementById('variantsChart').getContext('2d');
+            new Chart(variantsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['LockBit', 'ALPHV/BlackCat', 'Cl0p', 'Royal', 'BlackBasta', 'Play', 'Akira', 'Others'],
+                    datasets: [{
+                        label: 'Percentage of Attacks',
+                        data: [22, 14, 11, 9, 7, 6, 5, 26],
+                        backgroundColor: [
+                            '#3498db',
+                            '#2980b9',
+                            '#e74c3c',
+                            '#c0392b',
+                            '#2ecc71',
+                            '#27ae60',
+                            '#f39c12',
+                            '#7f8c8d'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Percentage of Total Attacks'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Prevention Effectiveness Chart
+            const preventionCtx = document.getElementById('preventionChart').getContext('2d');
+            new Chart(preventionCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Backups', 'User Training', 'Patch Management', 'Email Security', 'MFA', 'Network Segmentation', 'EDR/XDR'],
+                    datasets: [{
+                        label: 'Effectiveness Rating',
+                        data: [95, 78, 86, 82, 90, 75, 88],
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderColor: '#3498db',
+                        pointBackgroundColor: '#3498db',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+
+            // Recovery Success Chart
+            const recoveryCtx = document.getElementById('recoveryChart').getContext('2d');
+            new Chart(recoveryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Full Recovery with Backups', 'Partial Recovery with Backups', 'Full Recovery After Payment', 'Partial Recovery After Payment', 'No Recovery'],
+                    datasets: [{
+                        data: [42, 25, 8, 19, 6],
+                        backgroundColor: [
+                            '#2ecc71',
+                            '#1abc9c',
+                            '#f39c12',
+                            '#e67e22',
+                            '#e74c3c'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+
+            // Industry Targets Chart
+            const industryCtx = document.getElementById('industryChart').getContext('2d');
+            new Chart(industryCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Healthcare', 'Financial Services', 'Manufacturing', 'Public Sector', 'Education', 'Retail', 'Energy & Utilities', 'IT Services'],
+                    datasets: [{
+                        label: 'Percentage of Attacks',
+                        data: [18, 15, 14, 12, 10, 9, 8, 7],
+                        backgroundColor: [
+                            '#3498db',
+                            '#2980b9',
+                            '#9b59b6',
+                            '#8e44ad',
+                            '#e74c3c',
+                            '#c0392b',
+                            '#2ecc71',
+                            '#27ae60'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Percentage of Total Attacks'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
