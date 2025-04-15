@@ -476,10 +476,7 @@
         .timeline-item:nth-child(odd)::after {
             right: -14px;
         }
-        
-        .timeline-item:nth-child(even)::after {
-            left: -14px;
-        }
+
         
         .timeline-content {
             padding: 20px;
@@ -2007,413 +2004,274 @@
     <script>
         // Wait for document to be fully loaded and Chart.js available
         document.addEventListener('DOMContentLoaded', function() {
-        // Welcome Modal Functionality
-        const modal = document.getElementById('welcomeModal');
-        const closeModal = document.querySelector('.close-modal');
-        const exploreButton = document.getElementById('explorePortal');
-        
-        // Show modal when page loads
-        window.addEventListener('load', () => {
+            // Welcome Modal Functionality
+            const modal = document.getElementById('welcomeModal');
+            const closeModal = document.querySelector('.close-modal');
+            const explorePortal = document.getElementById('explorePortal');
+            
+            // Show modal on page load (with slight delay for better UX)
             setTimeout(() => {
                 modal.style.display = 'block';
-            }, 500);
-        });
-        
-        // Close modal when clicking the X
-        closeModal.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        
-        // Close modal when clicking the explore button
-        exploreButton.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-        
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-            }
-        });
-        
-        // Risk Assessment Tool
-        const riskOptions = document.querySelectorAll('.risk-option');
-        const calculateRiskButton = document.getElementById('calculate-risk');
-        const riskResult = document.getElementById('risk-result');
-        const riskScore = document.getElementById('risk-score');
-        const riskRecommendation = document.getElementById('risk-recommendation');
-        
-        riskOptions.forEach(option => {
-            option.addEventListener('click', () => {
-                // Remove selected class from siblings
-                const siblings = option.parentElement.querySelectorAll('.risk-option');
-                siblings.forEach(sib => sib.classList.remove('selected'));
-                
-                // Add selected class to clicked option
-                option.classList.add('selected');
-            });
-        });
-        
-        calculateRiskButton.addEventListener('click', () => {
-            let totalScore = 0;
-            let answeredQuestions = 0;
+            }, 1000);
             
-            document.querySelectorAll('.risk-question').forEach(question => {
-                const selectedOption = question.querySelector('.risk-option.selected');
-                if (selectedOption) {
-                    totalScore += parseInt(selectedOption.dataset.score);
-                    answeredQuestions++;
+            // Close modal when X is clicked or when "Explore the Portal" button is clicked
+            if (closeModal) {
+                closeModal.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            if (explorePortal) {
+                explorePortal.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside the content
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
                 }
             });
             
-            if (answeredQuestions < 6) {
-                alert('Please answer all questions to get an accurate assessment.');
-                return;
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons and content
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button and corresponding content
+                    btn.classList.add('active');
+                    const tabId = btn.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Risk Assessment Tool
+            const riskOptions = document.querySelectorAll('.risk-option');
+            const calculateRiskBtn = document.getElementById('calculate-risk');
+            const riskResult = document.getElementById('risk-result');
+            const riskScore = document.getElementById('risk-score');
+            const riskRecommendation = document.getElementById('risk-recommendation');
+            
+            // Let users select options
+            riskOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected class from siblings
+                    const siblings = option.parentElement.querySelectorAll('.risk-option');
+                    siblings.forEach(sib => sib.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                });
+            });
+            
+            // Calculate risk when button is clicked
+            if (calculateRiskBtn) {
+                calculateRiskBtn.addEventListener('click', () => {
+                    let totalScore = 0;
+                    let answeredQuestions = 0;
+                    
+                    // Get selected options
+                    document.querySelectorAll('.risk-question').forEach(question => {
+                        const selectedOption = question.querySelector('.risk-option.selected');
+                        if (selectedOption) {
+                            totalScore += parseInt(selectedOption.getAttribute('data-score'));
+                            answeredQuestions++;
+                        }
+                    });
+                    
+                    // Only show result if all questions are answered
+                    if (answeredQuestions === document.querySelectorAll('.risk-question').length) {
+                        // Calculate percentage
+                        const maxScore = answeredQuestions * 3; // Maximum score is 3 per question
+                        const percentage = (totalScore / maxScore) * 100;
+                        
+                        // Show appropriate result based on score
+                        riskResult.style.display = 'block';
+                        
+                        if (percentage >= 75) {
+                            riskResult.className = 'risk-result risk-low';
+                            riskScore.textContent = `Your risk level: LOW (Score: ${percentage.toFixed(0)}%)`;
+                            riskRecommendation.textContent = 'Your organization has strong ransomware defenses in place. Continue to maintain and improve your security posture.';
+                        } else if (percentage >= 50) {
+                            riskResult.className = 'risk-result risk-medium';
+                            riskScore.textContent = `Your risk level: MEDIUM (Score: ${percentage.toFixed(0)}%)`;
+                            riskRecommendation.textContent = 'Your organization has adequate protection but there are areas for improvement in your ransomware defenses.';
+                        } else {
+                            riskResult.className = 'risk-result risk-high';
+                            riskScore.textContent = `Your risk level: HIGH (Score: ${percentage.toFixed(0)}%)`;
+                            riskRecommendation.textContent = 'Your organization is at high risk of a ransomware attack. Immediate action is recommended to improve your security posture.';
+                        }
+                    } else {
+                        alert('Please answer all questions to calculate your risk level.');
+                    }
+                });
             }
             
-            const maxScore = 18; // 6 questions with max score of 3 each
-            const percentage = Math.round((totalScore / maxScore) * 100);
+            // Attack Simulation
+            const simulationSteps = document.querySelectorAll('.simulation-step');
             
-            let riskLevel = '';
-            let recommendation = '';
-            let resultClass = '';
-            
-            if (percentage >= 80) {
-                riskLevel = 'Low';
-                resultClass = 'risk-low';
-                recommendation = 'Your organization has implemented many best practices for ransomware protection. Continue maintaining these measures and stay updated on emerging threats.';
-            } else if (percentage >= 50) {
-                riskLevel = 'Medium';
-                resultClass = 'risk-medium';
-                recommendation = 'Your organization has implemented some protective measures but has gaps in your ransomware defenses. Focus on improving your weakest areas as identified in the assessment.';
-            } else {
-                riskLevel = 'High';
-                resultClass = 'risk-high';
-                recommendation = 'Your organization is at high risk for ransomware attacks. We strongly recommend implementing the protective measures outlined in this portal and considering professional assistance.';
-            }
-            
-            riskScore.textContent = `Risk Level: ${riskLevel} (Score: ${totalScore}/${maxScore})`;
-            riskRecommendation.textContent = recommendation;
-            riskResult.className = `risk-result ${resultClass}`;
-            riskResult.style.display = 'block';
-            
-            // Smooth scroll to result
-            riskResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-        
-        // Attack Simulation
-        const simulationSteps = document.querySelectorAll('.simulation-step');
-        const simulationScenes = document.querySelectorAll('.simulation-scene');
-        
-        simulationSteps.forEach(step => {
-            step.addEventListener('click', () => {
-                const stepNumber = step.dataset.step;
-                
-                // Hide all scenes
-                simulationScenes.forEach(scene => {
-                    scene.classList.remove('active');
+            simulationSteps.forEach(step => {
+                step.addEventListener('click', () => {
+                    const stepNumber = step.getAttribute('data-step');
+                    
+                    // Hide all scenes
+                    document.querySelectorAll('.simulation-scene').forEach(scene => {
+                        scene.classList.remove('active');
+                    });
+                    
+                    // Show selected scene
+                    document.getElementById(`simulation-scene-${stepNumber}`).classList.add('active');
                 });
-                
-                // Show the selected scene
-                document.getElementById(`simulation-scene-${stepNumber}`).classList.add('active');
             });
-        });
 
-        // Tab functionality
-        document.querySelectorAll('.tab-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                // Get the parent tabs container
-                const tabsContainer = button.closest('.tabs');
-                
-                // Get related tab content elements (siblings of the tabs container)
-                const tabContents = tabsContainer.parentElement.querySelectorAll('.tab-content');
-                
-                // Remove active class from all tabs in this container
-                tabsContainer.querySelectorAll('.tab-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                // Remove active class from all related tab contents
-                tabContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Add active class to clicked tab and its content
-                button.classList.add('active');
-                document.getElementById(button.dataset.tab).classList.add('active');
-            });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                if (this.getAttribute('href') === '#') return;
-                
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 70,
-                        behavior: 'smooth'
+            // Charts (only initialize if Chart.js is available and elements exist)
+            if (typeof Chart !== 'undefined') {
+                // Ransomware attacks chart
+                const ransomwareChartElement = document.getElementById('ransomwareChart');
+                if (ransomwareChartElement) {
+                    new Chart(ransomwareChartElement, {
+                        type: 'line',
+                        data: {
+                            labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                            datasets: [{
+                                label: 'Number of Attacks (thousands)',
+                                data: [184, 205, 304, 623, 493, 543, 580],
+                                borderColor: '#3498db',
+                                backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                                tension: 0.3,
+                                fill: true
+                            }, {
+                                label: 'Average Ransom Demand ($K)',
+                                data: [6, 41, 170, 570, 812, 1100, 1300],
+                                borderColor: '#e74c3c',
+                                backgroundColor: 'transparent',
+                                tension: 0.3
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
                     });
                 }
-            });
-        });
-
-        // Quiz functionality
-        const quizSubmit = document.getElementById('quiz-submit');
-        const quizReset = document.getElementById('quiz-reset');
-        const quizResult = document.getElementById('quiz-result');
-        
-        const correctAnswers = {
-            q1: 'c',
-            q2: 'b',
-            q3: 'c',
-            q4: 'c',
-            q5: 'b'
-        };
-        
-        quizSubmit.addEventListener('click', () => {
-            let score = 0;
-            let total = Object.keys(correctAnswers).length;
-            
-            Object.keys(correctAnswers).forEach(question => {
-                const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
-                if (selectedOption) {
-                    if (selectedOption.value === correctAnswers[question]) {
-                        score++;
-                        selectedOption.parentElement.classList.add('selected');
-                    }
-                }
-            });
-            
-            let resultClass = '';
-            let resultMessage = '';
-            
-            if (score === total) {
-                resultClass = 'result-success';
-                resultMessage = `Excellent! You scored ${score}/${total}. You have a strong understanding of ransomware concepts.`;
-            } else if (score >= total * 0.7) {
-                resultClass = 'result-success';
-                resultMessage = `Good job! You scored ${score}/${total}. You have a good grasp of ransomware basics.`;
-            } else if (score >= total * 0.5) {
-                resultClass = 'result-warning';
-                resultMessage = `You scored ${score}/${total}. Consider reviewing the material to strengthen your knowledge.`;
-            } else {
-                resultClass = 'result-danger';
-                resultMessage = `You scored ${score}/${total}. We recommend thoroughly reviewing the ransomware educational content.`;
-            }
-            
-            quizResult.className = resultClass;
-            quizResult.textContent = resultMessage;
-            quizResult.style.display = 'block';
-            
-            // Smooth scroll to result
-            quizResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-        
-        quizReset.addEventListener('click', () => {
-            document.querySelectorAll('input[type="radio"]').forEach(radio => {
-                radio.checked = false;
-            });
-            
-            document.querySelectorAll('.option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            quizResult.style.display = 'none';
-        });
-
-        // Add animation classes on scroll
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.card, .list-item, .resource-link, .timeline-item').forEach(item => {
-                const position = item.getBoundingClientRect();
                 
-                // If element is in viewport
-                if (position.top >= 0 && position.bottom <= window.innerHeight) {
-                    item.classList.add('animate-fade-in');
-                }
-            });
-        });
-            // Ransomware Attack Statistics Chart
-            const ransomwareCtx = document.getElementById('ransomwareChart').getContext('2d');
-            new Chart(ransomwareCtx, {
-                type: 'line',
-                data: {
-                    labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024'],
-                    datasets: [{
-                        label: 'Average Ransom Payment ($K)',
-                        data: [6, 84, 170, 220, 240, 350, 450],
-                        borderColor: '#3498db',
-                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
-                        borderWidth: 2,
-                        fill: true
-                    }, {
-                        label: 'Number of Attacks (thousands)',
-                        data: [4, 11, 20, 30, 40, 45, 48],
-                        borderColor: '#e74c3c',
-                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
-                        borderWidth: 2,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        title: {
-                            display: false
+                // Ransomware variants chart
+                const variantsChartElement = document.getElementById('variantsChart');
+                if (variantsChartElement) {
+                    new Chart(variantsChartElement, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['LockBit', 'ALPHV/BlackCat', 'Royal', 'Cl0p', 'BlackBasta', 'Others'],
+                            datasets: [{
+                                data: [30, 15, 12, 10, 8, 25],
+                                backgroundColor: [
+                                    '#3498db',
+                                    '#e74c3c',
+                                    '#2ecc71',
+                                    '#f39c12',
+                                    '#9b59b6',
+                                    '#95a5a6'
+                                ]
+                            }]
                         },
-                        legend: {
-                            position: 'top',
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
                         }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+                    });
                 }
-            });
-
-            // Ransomware Variants Chart
-            const variantsCtx = document.getElementById('variantsChart').getContext('2d');
-            new Chart(variantsCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['LockBit', 'ALPHV/BlackCat', 'Cl0p', 'Royal', 'BlackBasta', 'Play', 'Akira', 'Others'],
-                    datasets: [{
-                        label: 'Percentage of Attacks',
-                        data: [22, 14, 11, 9, 7, 6, 5, 26],
-                        backgroundColor: [
-                            '#3498db',
-                            '#2980b9',
-                            '#e74c3c',
-                            '#c0392b',
-                            '#2ecc71',
-                            '#27ae60',
-                            '#f39c12',
-                            '#7f8c8d'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Percentage of Total Attacks'
+                
+                // Prevention effectiveness chart
+                const preventionChartElement = document.getElementById('preventionChart');
+                if (preventionChartElement) {
+                    new Chart(preventionChartElement, {
+                        type: 'bar',
+                        data: {
+                            labels: ['MFA', 'Regular Backups', 'Email Filtering', 'User Training', 'Patch Management', 'Network Segmentation', 'EDR Solutions'],
+                            datasets: [{
+                                label: 'Effectiveness (%)',
+                                data: [92, 96, 85, 78, 88, 82, 90],
+                                backgroundColor: 'rgba(52, 152, 219, 0.7)'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
                             }
                         }
-                    }
+                    });
                 }
-            });
-
-            // Prevention Effectiveness Chart
-            const preventionCtx = document.getElementById('preventionChart').getContext('2d');
-            new Chart(preventionCtx, {
-                type: 'radar',
-                data: {
-                    labels: ['Backups', 'User Training', 'Patch Management', 'Email Security', 'MFA', 'Network Segmentation', 'EDR/XDR'],
-                    datasets: [{
-                        label: 'Effectiveness Rating',
-                        data: [95, 78, 86, 82, 90, 75, 88],
-                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
-                        borderColor: '#3498db',
-                        pointBackgroundColor: '#3498db',
-                        borderWidth: 2
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        r: {
-                            angleLines: {
-                                display: true
-                            },
-                            suggestedMin: 0,
-                            suggestedMax: 100
-                        }
-                    }
-                }
-            });
-
-            // Recovery Success Chart
-            const recoveryCtx = document.getElementById('recoveryChart').getContext('2d');
-            new Chart(recoveryCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Full Recovery with Backups', 'Partial Recovery with Backups', 'Full Recovery After Payment', 'Partial Recovery After Payment', 'No Recovery'],
-                    datasets: [{
-                        data: [42, 25, 8, 19, 6],
-                        backgroundColor: [
-                            '#2ecc71',
-                            '#1abc9c',
-                            '#f39c12',
-                            '#e67e22',
-                            '#e74c3c'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'right',
-                        }
-                    }
-                }
-            });
-
-            // Industry Targets Chart
-            const industryCtx = document.getElementById('industryChart').getContext('2d');
-            new Chart(industryCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Healthcare', 'Financial Services', 'Manufacturing', 'Public Sector', 'Education', 'Retail', 'Energy & Utilities', 'IT Services'],
-                    datasets: [{
-                        label: 'Percentage of Attacks',
-                        data: [18, 15, 14, 12, 10, 9, 8, 7],
-                        backgroundColor: [
-                            '#3498db',
-                            '#2980b9',
-                            '#9b59b6',
-                            '#8e44ad',
-                            '#e74c3c',
-                            '#c0392b',
-                            '#2ecc71',
-                            '#27ae60'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Percentage of Total Attacks'
+                
+                // Recovery success chart
+                const recoveryChartElement = document.getElementById('recoveryChart');
+                if (recoveryChartElement) {
+                    new Chart(recoveryChartElement, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Paid Ransom', 'Used Backups', 'Used Free Decryptor', 'Data Loss'],
+                            datasets: [{
+                                label: 'Recovery Success Rate (%)',
+                                data: [65, 96, 73, 0],
+                                backgroundColor: [
+                                    '#f39c12', 
+                                    '#2ecc71', 
+                                    '#3498db', 
+                                    '#e74c3c'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    max: 100
+                                }
                             }
                         }
-                    }
+                    });
                 }
-            });
+                
+                // Industry targets chart
+                const industryChartElement = document.getElementById('industryChart');
+                if (industryChartElement) {
+                    new Chart(industryChartElement, {
+                        type: 'polarArea',
+                        data: {
+                            labels: ['Healthcare', 'Manufacturing', 'Financial Services', 'Education', 'Government', 'IT & Technology', 'Energy & Utilities', 'Legal'],
+                            datasets: [{
+                                data: [24, 16, 13, 15, 12, 8, 7, 5],
+                                backgroundColor: [
+                                    '#3498db',
+                                    '#e74c3c',
+                                    '#2ecc71',
+                                    '#f39c12',
+                                    '#9b59b6',
+                                    '#34495e',
+                                    '#1abc9c',
+                                    '#e67e22'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                }
+            }
         });
     </script>
 </body>
