@@ -92,17 +92,40 @@
             color: white;
             padding: 60px 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
         }
         
         .hero h1 {
             font-size: 2.5rem;
             margin-bottom: 20px;
+            z-index: 1;
+            position: relative;
         }
         
         .hero p {
             font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto 30px;
+            z-index: 1;
+            position: relative;
         }
         
         .btn {
@@ -1084,9 +1107,10 @@
     </header>
 
     <div class="hero">
-        <video class="hero-video" autoplay muted loop>
-            <source src="/api/placeholder/1200/600" type="video/mp4">
-        </video>
+        <div class="hero-background">
+            <!-- Replaced video with a div that has a background image -->
+            <div class="hero-image"></div>
+        </div>
         <div class="container">
             <h1>Protect Your Organization from Ransomware</h1>
             <p>Learn about ransomware attacks, how they work, and the most effective strategies to prevent and mitigate them. Knowledge is your first line of defense.</p>
@@ -1978,7 +2002,8 @@
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.1/chart.min.js"></script>
+    <!-- Add defer attribute to ensure Chart.js loads properly before being used -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chart.js/3.7.1/chart.min.js" defer></script>
     <script>
         // Wait for document to be fully loaded and Chart.js available
         document.addEventListener('DOMContentLoaded', function() {
